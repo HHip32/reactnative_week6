@@ -1,8 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Image, Text, View, TextInput, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import index2 from './index2';
 const index1 = () => {
+    const route = useRoute();
+    const selectedColor = route.params ? route.params.selectedColor : '#234896';
+    const [productImage, setProductImage] = useState(require('./assets/vs_blue.png'));
+    useEffect(() => {
+        const colorData = [
+            { color: '#C5F1FB', image: require('./assets/vs_silver.png') },
+            { color: '#F30D0D', image: require('./assets/vs_red.png') },
+            { color: '#000000', image: require('./assets/vs_black.png') },
+            { color: '#234896', image: require('./assets/vs_blue1.png') },
+        ];
+
+        const selectedColorData = colorData.find(item => item.color === selectedColor);
+        if (selectedColorData) {
+            setProductImage(selectedColorData.image);
+        }
+        console.log('Selected Color:', selectedColor);
+    }, [selectedColor]);
     const navigation = useNavigation();
     const handleTranform = () => {
         navigation.navigate(index2)
@@ -11,7 +29,7 @@ const index1 = () => {
 
         <View style={styles.container}>
             <View style={{ width: 350, height: 400, justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={{ width: 350, height: 400 }} source={require('./assets/vs_blue.png')} />
+                <Image style={{ width: 350, height: 400 }} source={productImage} />
             </View>
             <View style={{ width: 288, height: 20 }}>
                 <Text style={{ width: 288, height: 18, fontFamily: 'Roboto', fontWeight: 700, fontSize: 15, lineHeight: 17.58, color: '#000000' }}>
