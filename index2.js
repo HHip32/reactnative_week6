@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Image, Text, View, TextInput, TouchableOpacity, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import index1 from './index1';
 
-export default function index2() {
-    const navigation = useNavigation();
+export default function index2({navigation}) {
     const colorData = [
         { color: '#C5F1FB', image: require('./assets/vs_silver.png') },
         { color: '#F30D0D', image: require('./assets/vs_red.png') },
         { color: '#000000', image: require('./assets/vs_black.png') },
         { color: '#234896', image: require('./assets/vs_blue1.png') },
     ];
-    const [selectedColor, setSelectedColor] = useState('blue');
+    const [selectedColor, setSelectedColor] = useState('#234896');
     const handleColorChange = (color) => {
         setSelectedColor(color);
     };
@@ -49,7 +47,9 @@ export default function index2() {
                     <Pressable
                         style={{ width: 350, height: 44, borderWidth: 1, borderBlockColor: '#CA1536', borderRadius: '10px', backgroundColor: '#1952E294', alignItems: 'center', justifyContent: 'center' }}
                         onPress={() => {
-                            navigation.navigate(index1, { selectedColor: selectedColor })
+                            navigation.navigate('index1', { 
+                                selectedImage: getImageForColor
+                            })
                         }}
                     >
                         <Text style={{ width: 75, height: 23, fontFamily: 'Roboto', fontWeight: 700, fontSize: 20, lineHeight: 23.44 }}>XONG</Text>
